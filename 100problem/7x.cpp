@@ -8,8 +8,12 @@ int main()
     ll n;
     cin >> n;
     vector<pair<ll, ll>> xy(n);
-    rep(i, n) cin >> xy[i].first >> xy[i].second;
-    sort(xy.begin(), xy.end());
+    set<pair<ll, ll>> s;
+    rep(i, n)
+    {
+        cin >> xy[i].first >> xy[i].second;
+        s.insert(xy[i]);
+    }
     ll ma = 0;
     rep(i, n - 1)
     {
@@ -20,9 +24,7 @@ int main()
             cy = xy[j].second + xy[j].first - xy[i].first;
             dx = xy[i].first - xy[j].second + xy[i].second;
             dy = xy[i].second + xy[j].first - xy[i].first;
-            if (find(xy.begin(), xy.end(), make_pair(cx, cy)) == xy.end() || find(xy.begin(), xy.end(), make_pair(dx, dy)) == xy.end())
-                continue;
-            else
+            if (s.count(make_pair(cx, cy)) and s.count(make_pair(dx, dy)))
             {
                 ll ans = pow(xy[j].first - xy[i].first, 2) + pow(xy[j].second - xy[i].second, 2);
                 ma = max(ma, ans);
